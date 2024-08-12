@@ -8,7 +8,10 @@
             {{--  --}}
             <div class="flex justify-center items-center h-screen">
                 <div class="form-login w-full max-w-md px-4">
-                    <form action="">
+                    <form action="{{ route('forgot-password') }}" method="POST" class="submit-form">
+
+                        @csrf
+
                         {{-- title --}}
                         <div class="">
                             <h3 class="text-custom-blue font-bold text-xl">Forgot Password</h3>
@@ -38,7 +41,8 @@
                         <button 
                         type="submit"
                         data-ripple-light="true"
-                        class="w-full bg-custom-blue my-0 py-3.5 text-white font-semibold rounded-3xl">Continue</button>
+                        data-text="Continue"
+                        class="w-full bg-custom-blue my-0 py-3.5 text-white font-semibold rounded-3xl btn-submit-form">Continue</button>
                         {{-- button submit --}}
 
                         <div class="relative my-6 flex items-center justify-center">

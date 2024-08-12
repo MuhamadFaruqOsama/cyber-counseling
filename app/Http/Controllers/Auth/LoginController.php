@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -18,48 +20,52 @@ class LoginController extends Controller
 
     public function login(Request $request) {
         $validator = Validator::make($request->all(), [
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required'
         ]);
-
-        if($validator->fails()) {
+    
+        if ($validator->fails()) {
             session()->flash('toast', [
                 'status' => 'error',
-                'msg' => $validator->errors()
+                'msg' => $validator->errors()->first()
             ]);
-
+    
             return back()->withInput();
         }
-        
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            
-            $request->session()->regenerate();
-
-            $user = Auth::user();
-
-            $token = $request->user()->createToken('auth_token')->plainTextToken;
-
-            $cookie = cookie('auth_token', $token, 20160);
-
+    
+        $user = User::where('email', $request->email)->first();
+    
+        if (!$user) {
             session()->flash('toast', [
-                'status' => 'success',
-                'msg' => 'login successful'
+                'status' => 'error',
+                'msg' => 'Email not registered'
             ]);
-
-            return redirect()->intended('/')->withCookie($cookie);
+    
+            return back()->withInput();
         }
-
-        // Jika otentikasi gagal
+    
+        if (!Hash::check($request->password, $user->password)) {
+            session()->flash('toast', [
+                'status' => 'error',
+                'msg' => "Email and password don't match"
+            ]);
+    
+            return back()->withInput();
+        }
+    
+        Auth::login($user);
+    
+        $request->session()->regenerate();
+    
+        $token = $user->createToken('auth_token')->plainTextToken;
+    
+        $cookie = cookie('auth_token', $token, 20160); // Token valid for 14 days
+    
         session()->flash('toast', [
-            'status' => 'error',
-            'msg' => 'Invalid credentials'
+            'status' => 'success',
+            'msg' => 'Login successful'
         ]);
-
-        throw ValidationException::withMessages([
-            'email' => [trans('auth.failed')],
-        ]);
-
+    
+        return redirect()->intended('/')->withCookie($cookie);
     }
 }

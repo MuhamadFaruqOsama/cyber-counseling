@@ -2,7 +2,7 @@
 
 @section('container')
 
-    <div class="bg-gray-100 min-h-screen">
+    <div class="bg-gray-50 min-h-screen">
 
         <div class="bg-custom-blue px-4 py-3" style="border-radius: 0px 0px 0px 30px;">
             {{-- title --}}

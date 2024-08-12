@@ -17,7 +17,7 @@
 
                     <hr class="mt-4 mb-5">
 
-                    <form action="{{ route('verify-otp') }}" method="POST" id="form-otp">
+                    <form action="{{ $title == "Verify Otp" ?  route('verify-otp') : route('forgot-password-otp') }}" method="POST" id="form-otp" class="submit-form">
 
                         @csrf
 
@@ -78,8 +78,9 @@
                         <button 
                         type="submit"
                         data-ripple-light="true"
-                        class="w-full bg-custom-blue py-3.5 text-white font-semibold rounded-3xl"
+                        class="w-full bg-custom-blue py-3.5 text-white font-semibold rounded-3xl btn-submit-form"
                         id="btn-confirm"
+                        data-text="Confirm"
                         >Confirm</button>
                         {{-- button submit --}}
 
@@ -91,7 +92,7 @@
                     </div>
 
                     <div class="block mt-3 text-gray-600 text-center" id="countdown">
-                        <a id="resend" class="text-custom-blue cursor-pointer">Resend OTP</a>
+                        <a id="{{ $title == 'Verify Otp' ? 'resend' : 'resend-forgot' }}" class="text-custom-blue cursor-pointer">Resend OTP</a>
                     </div>
 
                 </div>

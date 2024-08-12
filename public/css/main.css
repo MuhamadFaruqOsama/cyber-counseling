@@ -59,3 +59,80 @@ body {
     break-inside: avoid;
     margin-bottom: 10px;
 }
+
+.custom-file-input {
+    background-color: transparent;
+}
+
+.custom-file-input::-webkit-file-upload-button {
+    background-color: #FAFAFA !important;
+    color: #656b6b !important; 
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+.custom-file-input::-moz-file-upload-button {
+    background-color: #FAFAFA !important; 
+    color: #656b6b !important; 
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+.loader {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
+
+    .loader-2 {
+        width: 84px;
+        height: 84px;
+        position: relative;
+        overflow: hidden;
+      }
+      .loader-2:before , .loader-2:after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width:64px;
+        height: 64px;
+        border-radius: 50%;
+        background:#329AFF;
+        transform: translate(-50% , 100%)  scale(0);
+        animation: push 2s infinite ease-in;
+      }
+      .loader-2:after {
+      animation-delay: 1s;
+      }
+      @keyframes push {
+          0% {
+            transform: translate(-50% , 100%)  scale(1);
+          }
+          15% , 25%{
+            transform: translate(-50% , 50%)  scale(1);
+          }
+        50% , 75% {
+            transform: translate(-50%, -30%) scale(0.5);
+          }
+        80%,  100% {
+            transform: translate(-50%, -50%) scale(0);
+          }
+      }
+  

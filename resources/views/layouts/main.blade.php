@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Cyber Konseling adalah aplikasi konseling online 24/7 yang menghubungkan Anda dengan profesional kesehatan mental. Konsultasi aman, nyaman, dan privat dari rumah Anda. Daftar sekarang!">
 
-        @if ($title == "Verify Otp")
+        @if ($title == "Verify Otp" || $title == "Forgot Password OTP")
             <meta name="csrf-token" content="{{ csrf_token() }}">
         @endif
 
@@ -18,7 +18,7 @@
         <script src="https://kit.fontawesome.com/910e994c98.js" crossorigin="anonymous"></script>
 
         {{-- local style --}}
-        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+        <link rel="stylesheet" href="{{ secure_asset('css/main.css') }}">
 
         {{-- date picker --}}
         <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
@@ -42,33 +42,51 @@
         />
 
         {{-- izi Toast --}}
-        <link rel="stylesheet" href="{{ asset('vendor/izitoast/css/iziToast.min.css') }}">
+        <link rel="stylesheet" href="{{ secure_asset('vendor/izitoast/css/iziToast.min.css') }}">
 
         {{-- material tailwind css --}}
         @vite('resources/css/app.css')
+        {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
 
     </head>
-    <body class="antialiased">
+    <body class="antialiased" 
+    @if ($title !== 'YOUR OTP')
+        onload="hideLoader()"
+    @endif
+    >
 
-        <div class="app-body">
+        @if ($title !== "YOUR OTP") 
+            <div id="loader">
+                <div class="fixed w-full max-w-[576px] h-full bg-custom-blue-30 loader-page z-50 left-1/2 transform -translate-x-1/2">
+                    <div class="loader-2 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+                </div>        
+            </div>
+        @endif
+
+        <div class="app-body none">
 
             @yield('container')
 
         </div>
 
         {{-- izi Toast --}}
-        <script src="{{ asset('vendor/izitoast/js/iziToast.min.js') }}"></script>
+        <script src="{{ secure_asset('vendor/izitoast/js/iziToast.min.js') }}"></script>
 
         {{-- show password --}}
-        @if ($title == "Login" || $title == "Register" || $title == "Change password")
-            <script src="{{ asset('js/toast.js') }}"></script>
-            <script src="{{ asset('js/auth.js') }}"></script>
+        @if ($title == "Login" || $title == "Register" || $title == "Change Password")
+            <script src="{{ secure_asset('js/toast.js') }}"></script>
+            <script src="{{ secure_asset('js/auth.js') }}"></script>
         @endif
 
         {{-- OTP --}}
-        @if ($title == "Verify Otp") 
-            <script src="{{ asset('js/otp.js') }}"></script>
-            <script src="{{ asset('js/resend-otp.js') }}"></script>
+        @if ($title == "Verify Otp" || $title == "Forgot Password OTP") 
+            <script src="{{ secure_asset('js/otp.js') }}"></script>
+            <script src="{{ secure_asset('js/resend-otp.js') }}"></script>
+        @endif
+
+        {{-- EDIT PROFILE --}}
+        @if ($title == "Edit Profile")
+            <script src="{{ secure_asset('js/edit-data.js') }}"></script>
         @endif
 
         <!-- FilePond scripts -->
@@ -91,7 +109,7 @@
 
         {{-- profile --}}
         @if ($title == "Profile") 
-            <script src="{{ asset('js/profile.js') }}"></script>
+            <script src="{{ secure_asset('js/profile.js') }}"></script>
         @endif
 
         {{-- ripple --}}
@@ -101,7 +119,7 @@
         <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 
         {{-- main local js --}}
-        <script src="{{ asset('js/main.js') }}"></script>
+        <script src="{{ secure_asset('js/main.js') }}"></script>
 
         <script>
             @if(session('toast'))

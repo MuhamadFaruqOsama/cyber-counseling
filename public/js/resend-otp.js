@@ -1,50 +1,93 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const btnResend = document.getElementById('resend');
     const countdown = document.getElementById('countdown');
 
-    btnResend.addEventListener('click', function() {
+    if(document.getElementById('resend')) {
 
-        btnResend.innerHTML = 'Sending OTP...'
+        const btnResend = document.getElementById('resend');
 
-        fetch('/resend-otp', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data) {
-                startCountdown();
+        btnResend.addEventListener('click', function() {
 
-                iziToast.success({
-                    title: 'Success',
-                    message: `OTP has been sent to your email`,
-                    position: 'topRight',
-                    icon: 'fa-solid fa-check'
-                })
-            } else {
-                iziToast.error({
-                    title: "Error",
-                    message: `Error sending OTP`,
-                    position: 'topRight',
-                    icon: 'fa-solid fa-ban'
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
+            btnResend.innerHTML = 'Sending OTP...'
+
+            fetch('/resend-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    startCountdown('resend');
+
+                    iziToast.success({
+                        title: 'Success',
+                        message: `OTP has been sent to your email`,
+                        position: 'topRight',
+                        icon: 'fa-solid fa-check'
+                    })
+                } else {
+                    iziToast.error({
+                        title: "Error",
+                        message: `Error sending OTP`,
+                        position: 'topRight',
+                        icon: 'fa-solid fa-ban'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         });
-    });
+    }
 
-    function startCountdown() {
+    if(document.getElementById('resend-forgot')) {
+
+        const btnResendForgot = document.getElementById('resend-forgot');
+
+        btnResendForgot.addEventListener('click', function() {
+
+            btnResendForgot.innerHTML = 'Sending OTP...'
+
+            fetch('/resend-otp-forgot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    startCountdown('resend-forgot');
+
+                    iziToast.success({
+                        title: 'Success',
+                        message: `OTP has been sent to your email`,
+                        position: 'topRight',
+                        icon: 'fa-solid fa-check'
+                    })
+                } else {
+                    iziToast.error({
+                        title: "Error",
+                        message: `Error sending OTP`,
+                        position: 'topRight',
+                        icon: 'fa-solid fa-ban'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    }
+    
+    function startCountdown(type) {
         let time = 60 * 1000;
 
         // Perbarui countdown setiap 1 detik
         const x = setInterval(() => {
-
-            btnResend.removeAttribute('onclick')
 
             // Kurangi waktu sebesar 1 detik (1000 milidetik)
             time -= 1000;
@@ -54,12 +97,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const seconds = Math.floor((time % (1000 * 60)) / 1000);
 
             // Tampilkan hasil di elemen dengan id="countdown"
-            countdown.innerHTML = `${minutes} : ${seconds}`;
+            countdown.innerHTML = `resend it again after ${minutes} : ${seconds}`;
 
             // Jika countdown selesai, tulis teks
             if (time == 0) {
                 clearInterval(x);
-                countdown.innerHTML = `<a id="resend" class="text-custom-blue">Resend OTP</a>`
+
+                countdown.innerHTML = `<a id="${type}" class="text-custom-blue">Resend OTP</a>`
             }
         }, 1000)
 

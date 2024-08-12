@@ -8,7 +8,7 @@
             {{--  --}}
             <div class="flex justify-center items-center h-screen">
                 <div class="form-login w-full max-w-md px-4">
-                    <form action="{{ route('login') }}" method="POST">
+                    <form action="{{ url()->secure('login') }}" method="POST" class="submit-form">
 
                         @csrf
 
@@ -69,7 +69,8 @@
                         <button 
                         type="submit"
                         data-ripple-light="true"
-                        class="w-full bg-custom-blue my-0 py-3.5 text-white font-semibold rounded-3xl">Login</button>
+                        data-text="Login"
+                        class="w-full bg-custom-blue my-0 py-3.5 text-white font-semibold rounded-3xl btn-submit-form">Login</button>
                         {{-- button submit --}}
 
                         <div class="relative my-6 flex items-center justify-center">

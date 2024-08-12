@@ -2,7 +2,7 @@
 
 @section('container')
 
-    <div class="bg-gray-100 pb-20 min-h-screen">
+    <div class="bg-gray-50 pb-20 min-h-screen">
 
         <div class="bg-custom-blue relative h-16 pt-5">
             <div class="absolute left-1/2 -translate-x-1/2 mt-1">
@@ -26,7 +26,7 @@
 
         <div class="w-full flex items-center align-bottom justify-center">
             <div class="bg-custom-blue-30 w-fit px-3 mt-14 rounded-xl">
-                <small class="text-custom-blue">email@gmail.com</small>
+                <small class="text-custom-blue">{{ $data_akun->email }}</small>
             </div>
         </div>
 
@@ -35,17 +35,31 @@
 
             <div class="bg-white p-3 shadow-sm mb-2 rounded-xl">
                 <div class="items flex">
-                    <div class="flex items-center align-middle justify-center w-8 h-8 rounded-full bg-green-400">
-                        <i class="fa-solid fa-phone text-md text-white"></i>
+                    <div class="flex items-center align-middle justify-center w-8 h-8 rounded-full bg-red-500">
+                        <i class="fa-solid fa-user text-md text-white"></i>
                     </div>
-                    <div class="text-gray-600 flex items-center align-middle justify-center ms-3">098988978678</div>
+                    <div class="text-gray-600 flex items-center align-middle justify-center ms-3 capitalize">{{ $data_diri->nama }}</div>
                 </div>
                 <hr class="my-2">
                 <div class="items flex">
-                    <div class="flex items-center align-middle justify-center w-8 h-8 rounded-full bg-red-500">
-                        <i class="fa-solid fa-location-dot text-md text-white"></i>
+                    <div class="flex items-center align-middle justify-center w-8 h-8 rounded-full bg-light-green-500">
+                        <i class="fa-solid fa-phone text-md text-white"></i>
                     </div>
-                    <div class="text-gray-600 flex items-center align-middle justify-center ms-3">Jl xxxxxx</div>
+                    <div class="text-gray-600 flex items-center align-middle justify-center ms-3">{{ $data_diri->telp }}</div>
+                </div>
+                <hr class="my-2">
+                <div class="items flex">
+                    <div class="flex items-center align-middle justify-center w-8 h-8 rounded-full bg-custom-blue">
+                        <i class="fa-solid fa-address-card text-md text-white"></i>
+                    </div>
+                    <div class="text-gray-600 flex items-center align-middle justify-center ms-3">{{ $data_diri->nim }}</div>
+                </div>
+                <hr class="my-2">
+                <div class="items flex">
+                    <div class="flex items-center align-middle justify-center w-8 h-8 rounded-full bg-yellow-400">
+                        <i class="fa-solid fa-graduation-cap text-md text-white"></i>
+                    </div>
+                    <div class="text-gray-600 flex items-center align-middle justify-center ms-3">{{ $data_diri->jurusan }}</div>
                 </div>
             </div>
 

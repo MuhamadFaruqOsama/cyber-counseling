@@ -8,7 +8,7 @@
             {{--  --}}
             <div class="flex justify-center items-center h-screen">
                 <div class="form-login w-full max-w-md px-4">
-                    <form action="{{ route('register') }}" method="POST" id="register-form">
+                    <form action="{{ route('register') }}" method="POST" id="register-form" class="submit-form">
 
                         @csrf
 
@@ -99,11 +99,13 @@
                             </span>
                             </label>
                             <label class="mt-px font-light text-gray-700 cursor-pointer select-none" for="remember">
-                            <p class="flex items-center font-sans text-sm antialiased font-normal leading-normal text-gray-500">
-                                I agree the
-                                <a href="#" class="font-semibold transition-colors text-gray-700">
-                                &nbsp;Terms and Conditions
-                                </a>
+                            <p class="flex items-center font-sans text-sm antialiased font-normal leading-normal">
+                                <div class="text-gray-500">
+                                    I have read and agree
+                                    <a href="/persetujuan" class="font-semibold transition-colors text-gray-700">
+                                        Terms and Conditions
+                                    </a>
+                                </div>
                             </p>
                             </label>
                         </div>
@@ -114,7 +116,8 @@
                         type="submit"
                         data-ripple-light="true"
                         id="btn-register"
-                        class="w-full bg-custom-blue my-0 py-3.5 text-white font-semibold rounded-3xl disabled:bg-custom-blue-30"
+                        data-text="Register"
+                        class="w-full bg-custom-blue my-0 py-3.5 text-white font-semibold rounded-3xl disabled:bg-custom-blue-30 btn-submit-form"
                         disabled>Register</button>
                         {{-- button submit --}}
 

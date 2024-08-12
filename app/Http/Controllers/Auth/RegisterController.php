@@ -21,9 +21,15 @@ class RegisterController extends Controller
         return view('auth.register', compact('title'));
     }
 
+    // persetujuan page
+    public function persetujuan() {
+        $title = "Persetujuan";
+
+        return view('data.persetujuan', compact('title'));
+    }
+
     // register function
-    public function register(Request $request)
-    {
+    public function register(Request $request) {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
@@ -57,7 +63,7 @@ class RegisterController extends Controller
             'msg' => 'OTP has been sent to your email'
         ]);
 
-        return redirect('/verify-otp');
+        return redirect('verify-otp');
     }
 
     // otp page
@@ -68,8 +74,7 @@ class RegisterController extends Controller
     }
 
     // verify otp function
-    public function verifyOtp(Request $request)
-    {
+    public function verifyOtp(Request $request) {
         $validator = Validator::make($request->all(), [
             'otp' => 'required|digits:5',
         ]);
@@ -104,6 +109,8 @@ class RegisterController extends Controller
         $user->email_verified = 1;
         $user->save();
 
+        session()->forget('register_email');
+
         Auth::login($user);
 
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -119,8 +126,8 @@ class RegisterController extends Controller
     }
 
     // resend otp function
-    public function resendOtp(Request $request)
-    {
+    public function resendOtp(Request $request) {
+
         $email = session('register_email');
 
         if (!$email) {

@@ -11,41 +11,69 @@
         </div>
         {{-- title --}}
 
-        <form action="" method="post">
-
         {{-- body --}}
         <div class="w-full h-full px-4 pt-7 bg-white" style="border-radius: 30px 30px 0px 0px">
-            <div class="relative h-11 w-full min-w-[200px] mb-4">
-                <div class="relative">
-                    <input 
-                    type="text" 
-                    id="floating_filled" 
-                    class="block rounded-t-2xl px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-900 bg-gray-50 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-300 peer focus:border-b-2 focus:border-b-custom-blue" placeholder=" " />
-                    <label for="floating_filled" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Floating filled</label>
-                </div>
-            </div>
 
-            {{-- button-submit --}}
-            <div class="grid grid-cols-4 gap-3 pt-4">
-                <div class="col-span-1">
-                    <a href="/data-ibu"
-                    class="flex items-center justify-center align-middle w-full h-full border-2 border-custom-blue rounded-3xl text-custom-blue"
-                    data-ripple-light="true">
-                        <i class="fa-solid fa-angles-left text-lg"></i>
-                    </a>
-                </div>
-                <div class="col-span-3">
-                    <button 
-                    type="submit"
-                    data-ripple-light="true"
-                    class="w-full py-3.5 font-bold rounded-3xl text-white bg-custom-blue">Next</button>
-                </div>
-            </div>
-            {{-- button-submit --}}
+            <form 
+                action="{{ $data_keluhan_harapan ? route('update-keluhan-harapan') : route('keluhan-harapan') }}" 
+                method="post" 
+                enctype="multipart/form-data" class="submit-form">
+            
+                    @csrf
+            
+                    {{-- keluhan --}}
+                    <div class="mb-2 relative block">
+                        <label 
+                        for="keluhan" 
+                        class="block mb-2 text-sm font-medium text-gray-700">Your Complaint</label>
+                        <textarea 
+                        id="keluhan" 
+                        rows="4" 
+                        required
+                        name="keluhan"
+                        class="block rounded-t-2xl px-2.5 py-2.5 w-full text-sm text-gray-900 bg-gray-50 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-300 peer focus:border-b-2 focus:border-b-custom-blue" 
+                        placeholder="Write your complaint here...">{{ old('keluhan', $data_keluhan_harapan->keluhan ?? '') }}</textarea>
+                    </div>
+
+                    {{-- harapan --}}
+                    <div class="mb-2 relative block">
+                        <label 
+                        for="harapan" 
+                        class="block mb-2 text-sm font-medium text-gray-700">Your hope</label>
+                        <textarea 
+                        id="harapan" 
+                        rows="4" 
+                        required
+                        name="harapan"
+                        class="block rounded-t-2xl px-2.5 py-2.5 w-full text-sm text-gray-900 bg-gray-50 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-300 peer focus:border-b-2 focus:border-b-custom-blue" 
+                        placeholder="Write your hope here...">{{ old('harapan', $data_keluhan_harapan->harapan ?? '') }}</textarea>
+                    </div>
+
+                    <div class="block pb-10 mt-4">
+                        {{-- button-submit --}}
+                        <div class="grid grid-cols-4 gap-3 pt-4">
+                            <div class="col-span-1">
+                                <a href="/data-ibu"
+                                class="flex items-center justify-center align-middle w-full h-full border-2 border-custom-blue rounded-3xl text-custom-blue"
+                                data-ripple-light="true">
+                                    <i class="fa-solid fa-angles-left text-lg"></i>
+                                </a>
+                            </div>
+                            <div class="col-span-3">
+                                <button 
+                                type="submit"
+                                data-ripple-light="true"
+                                data-text="Next"
+                                class="w-full py-3.5 font-bold rounded-3xl text-white bg-custom-blue btn-submit-form">Next</button>
+                            </div>
+                        </div>
+                        {{-- button-submit --}}
+                    </div>
+            
+            </form>
 
         </div>        
         {{-- body --}}
-        </form>
 
     </div>
     {{--  --}}

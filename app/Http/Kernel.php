@@ -55,7 +55,9 @@ class Kernel extends HttpKernel
 
     protected $routeMiddleware = [
         'guest' => \App\Http\Middleware\GuestMiddleware::class,
-        'check.email.verified' => \App\Http\Middleware\CheckEmailVerified::class
+        'check.email.verified' => \App\Http\Middleware\CheckEmailVerified::class,
+        'check.user.data' => \App\Http\Middleware\CheckUserData::class,
+        'check.forgot.pass' => \App\Http\Middleware\CheckForgotPass::class,
     ];
 
     protected $middlewareAliases = [
@@ -71,4 +73,5 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
+    
 }
